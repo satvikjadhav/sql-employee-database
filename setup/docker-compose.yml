@@ -35,6 +35,9 @@ services:
       - PGADMIN_DEFAULT_EMAIL=admin@admin.com
       - PGADMIN_DEFAULT_PASSWORD=password
 
+    ports:
+      - 8080:80
+
   # This service will be the one where we run our python code 
   # and be treated as our development enviornment instead of using our personal computer
   devenv:
@@ -50,4 +53,3 @@ services:
       - ~/data/:/usr/app/data/:ro
 
     command: cd ~/usr/app/data && sudo apt update && sudo apt upgrade -y && pip install -r requirements.txt
-    
