@@ -26,6 +26,12 @@ services:
       POSTGRES_USER: username # The PostgreSQL user (useful to connect to the database)
       POSTGRES_PASSWORD: password # The PostgreSQL password (useful to connect to the database)
       POSTGRES_DB: emp_db # The PostgreSQL default database (automatically created at first launch)
+
+    ports:
+      - "5432:5432"
+
+    expose:
+      - "5432"
   
   # spinning up a pgadmin service so that we can interact with our postgres database with more ease
   pgadmin:
@@ -36,20 +42,22 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=password
 
     ports:
-      - 8080:80
+      - "8080:80"
 
-  # This service will be the one where we run our python code 
-  # and be treated as our development enviornment instead of using our personal computer
-  devenv:
-    image: 'ubuntu:latest'
+  # # This service will be the one where we run our python code 
+  # # and be treated as our development enviornment instead of using our personal computer
+  # devenv:
+  #   image: 'ubuntu:latest'
     
-    depends_on:
-      - database
-      - pgadmin
+  #   depends_on:
+  #     - database
+  #     - pgadmin
 
-    working_dir: /usr/app/
+  #   working_dir: /usr/app/
     
-    volumes:
-      - ~/data/:/usr/app/data/:ro
+  #   volumes:
+  #     - ../data/:/usr/app/data/:ro
+    
+  #   command: tail -f /dev/null
 
-    command: cd ~/usr/app/data && sudo apt update && sudo apt upgrade -y && pip install -r requirements.txt
+  #   # command: sh -c "cd /usr/app/data && sudo apt update && sudo apt upgrade -y && pip install -r requirements.txt && tail -f /dev/null"
